@@ -17,7 +17,7 @@ class TestInitializeTables(unittest.TestCase):
         self.conn.close()
 
         # Remove temp database
-        Path("file").unlink()
+        Path("file").unlink(missing_ok=True)
 
     def test_insert_user(self):
         expected = ("Me", 0.123456789, )

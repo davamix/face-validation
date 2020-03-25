@@ -1,0 +1,11 @@
+version: "3.7"
+
+services:
+    login:
+        build: ./app
+        image: face-login:1.0
+
+    # RUN: docker-compose up tests
+    tests:
+        image: face-login:1.0
+        command: python -m unittest discover -v -s tests -p *.py

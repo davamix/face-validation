@@ -17,7 +17,7 @@ class TestInitializeTables(unittest.TestCase):
         self.conn.close()
 
         # Remove temp database
-        Path("file").unlink()
+        Path("file").unlink(missing_ok=True)
 
     def test_user_table_is_created(self):
         expected = [("user", )]
