@@ -17,20 +17,32 @@ mtcnn = MTCNN(image_size=160, margin=0, min_face_size=20, thresholds=[0.6,0.7,0.
 
 resnet = InceptionResnetV1(pretrained="vggface2").eval().to(device)
 
-img1 = Image.open("./images/img1.jpg")
-img1b = Image.open("./images/img1_b.jpg")
-img1c = Image.open("./images/img1_c.jpg")
-img2 = Image.open("./images/img2.jpg")
+images = ["./images/img1.jpg", 
+        "./images/img1_b.jpg",
+        "./images/img1_c.jpg",
+        "./images/img1_c.jpg",
+        "./images/img1_c.jpg",
+        "./images/img1_c.jpg",
+        "./images/img2.jpg"]
 
-x_aligned1, prob1 = mtcnn(img1, return_prob=True)
-x_aligned1b, prob1b = mtcnn(img1b, return_prob=True)
-x_aligned1c, prob1c = mtcnn(img1c, return_prob=True)
-x_aligned2, prob2 = mtcnn(img2, return_prob=True)
+aligned = []
+for i in images:
+    img = Image.open(i)
+    x_aligned, prob = mtcnn(img, return_prob=True)
+    aligned.append(x_aligned)
 
-aligned = torch.stack([x_aligned1, x_aligned1b, x_aligned1c, x_aligned2]).to(device)
-
+aligned = torch.stack(aligned).to(device)
 embeddings = resnet(aligned).detach().cpu()
 
 dists = [[(e1 - e2).norm().item() for e2 in embeddings] for e1 in embeddings]
 
-print(pd.DataFrame(dists, columns=["img1", "img1b", "img1c", "img2"], index=["img1", "img1b", "img1c", "img2"]))
+print(pd.DataFrame(dists, columns=["img1", "img1b", "img1c", "img1d", "img1e", "img1f", "img2"], index=["img1", "img1b", "img1c", "img1d", "img1e", "img1f", "img2"]))
+
+#            img1     img1b     img1c     img1d     img1e     img1f      img2
+# img1   0.000000  0.830902  0.504560  0.504560  0.504560  0.504560  1.384472
+# img1b  0.830902  0.000000  0.618703  0.618703  0.618703  0.618703  1.392450
+# img1c  0.504560  0.618703  0.000000  0.000000  0.000000  0.000000  1.403071
+# img1d  0.504560  0.618703  0.000000  0.000000  0.000000  0.000000  1.403071
+# img1e  0.504560  0.618703  0.000000  0.000000  0.000000  0.000000  1.403071
+# img1f  0.504560  0.618703  0.000000  0.000000  0.000000  0.000000  1.403071
+# img2   1.384472  1.392450  1.403071  1.403071  1.403071  1.403071  0.000000

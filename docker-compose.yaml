@@ -1,9 +1,11 @@
 version: "3.7"
 
 services:
-    login:
+    flask:
         build: ./app
         image: face-login:1.0
+        ports:
+            - 5000:5000
 
     # RUN: docker-compose up tests
     tests:
