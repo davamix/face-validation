@@ -41,13 +41,17 @@
     </script>
     <script>
         setInterval(function(){
+            var canvas = document.createElement("canvas");
+            canvas.getContext("2d").drawImage(video, 0, 0, canvas.width, canvas.height);
+
+            data_url = canvas.toDataURL("image/png");
+            data = JSON.stringify(data_url.replace(/^data:image\/(png|jpg);base64,/, ""));
+
             request = new XMLHttpRequest();
             request.open("POST", "http://127.0.0.1:5000/validate", true);
             request.setRequestHeader("Content-Type", "application/json");
-            
-            data = JSON.stringify(Date.now());
-
             request.send(data);
-        }, 2000)
+
+        }, 5000)
     </script>
 </html>
