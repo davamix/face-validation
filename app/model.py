@@ -34,6 +34,9 @@ for i in images:
 aligned = torch.stack(aligned).to(device)
 embeddings = resnet(aligned).detach().cpu()
 
+for i, e in zip(images, embeddings):
+    print(f"{i} {e}")
+
 dists = [[(e1 - e2).norm().item() for e2 in embeddings] for e1 in embeddings]
 
 print(pd.DataFrame(dists, columns=["img1", "img1b", "img1c", "img1d", "img1e", "img1f", "img2"], index=["img1", "img1b", "img1c", "img1d", "img1e", "img1f", "img2"]))

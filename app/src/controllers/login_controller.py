@@ -1,3 +1,4 @@
+from flask import session
 from flask import render_template
 from flask import request
 from flask.views import MethodView
@@ -11,5 +12,6 @@ class LoginController(MethodView):
 
     def post(self):
         data = request.form["username"]
+        session["username"] = data
 
         return render_template("login_face.html", title="Login", username=data)

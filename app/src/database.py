@@ -31,3 +31,16 @@ class Database():
 
         except sqlite3.IntegrityError as ex:
             print(f"ERROR: {ex}")
+
+    def execute_many(self, queries):
+        conn = sqlite3.connect(self.__db_path)
+
+        try:
+            with conn:
+                cursor = conn.cursor()
+
+                for q in queries:
+                    cursor.execute(q)
+
+        except sqlite3.IntegrityError as ex:
+            print(f"ERROR: {ex}")
