@@ -1,1 +1,2 @@
 Flask == 1.1.1
+facenet-pytorch == 2.2.9

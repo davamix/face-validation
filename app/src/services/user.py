@@ -5,12 +5,13 @@ class UserService():
     def __init__(self):
         pass
 
-    def get_user(self, username):
+    def get_user_embeddings(self, username):
         params = (username,)
-        query = "SELECT username, embedding FROM user WHERE username = ?"
+        query = "SELECT value FROM embeddings WHERE username = ?"
 
-        result = Database().execute(query, params)
-        print(result)
+        results = Database().execute(query, params)
+        
+        return results
 
     def save_user(self, user):
         params = (user.username, user.embedding,)

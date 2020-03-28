@@ -10,9 +10,11 @@ class Database():
         self.__db_path = db_path
 
     def initialize_tables(self):
-        query = "CREATE TABLE IF NOT EXISTS user (username TEXT NOT NULL UNIQUE, embedding REAL)"
-        
-        self.execute(query)
+        create_user_table_query = "CREATE TABLE IF NOT EXISTS user (username TEXT NOT NULL UNIQUE)"
+        create_embeddings_table_query = "CREATE TABLE IF NO EXISTS embeddings(username TEXT, value REAL)"
+
+        # self.execute(query)
+        self.execute_many([create_user_table_query, create_embeddings_table_query])
 
     def execute(self, query, params=None):
         

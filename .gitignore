@@ -3,3 +3,5 @@
 __pycache__/
 
 images/
+sample.db
+save_embeddings.py
