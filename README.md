@@ -1,4 +1,4 @@
-# Face login
+# Face validation
 
 Use the face as a password
 
