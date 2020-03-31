@@ -21,9 +21,8 @@ def get_embeddings(image_path):
         face = torch.stack([face]).to(device)
         embeddings = resnet(face).detach().cpu()
         
-        print(embeddings)
-        print(f"Embeddings size: {embeddings.size()}")
-
+        # print(embeddings)
+        # print(f"Embeddings size: {embeddings.size()}")
 
         return embeddings
     
@@ -54,23 +53,22 @@ def save_embeddings(username, embeddings):
         cursor.executemany(insert_embeddings_query, values)
 
 
-# # Set the username
-# username = "Me"
+# Set the username
+username = "Me"
 
 # Set the image path
-image_path = Path(Path.cwd(), "app", "images", "img1.jpg")
+image_path = Path(Path.cwd(), "app", "images", "img1_d.jpg")
 
-# # Create db and tables with data
-# create_db(username)
+# Create db and tables with data
+create_db(username)
 
-# # Get the embeddings for the image
+# Get the embeddings for the image
 embeddings = get_embeddings(image_path)
-print(embeddings.norm())
 
-# # Save the embeddings 
-# if embeddings is not None:
-#     save_embeddings(username, embeddings[-1,:])
+# Save the embeddings 
+if embeddings is not None:
+    save_embeddings(username, embeddings[-1,:])
 
-# print("Done!")
+print("Done!")
 
 
