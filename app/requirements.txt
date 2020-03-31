@@ -1,2 +1,3 @@
 Flask == 1.1.1
 facenet-pytorch == 2.2.9
+opencv-python == 4.2.0.32

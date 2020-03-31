@@ -9,10 +9,10 @@ RUN pip install --upgrade pip
 
 ADD ./requirements.txt ./
 
-RUN pip install -r requirements.txt
-
 # Windows + CUDA 10.1 (https://pytorch.org/)
 RUN pip install torch===1.4.0 torchvision===0.5.0 -f https://download.pytorch.org/whl/torch_stable.html
+
+RUN pip install -r requirements.txt
 
 ADD . .
 

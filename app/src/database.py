@@ -1,20 +1,19 @@
 import sqlite3
 from pathlib import Path
 
+from services.configuration import ConfigurationService
+
 class Database():
-    def __init__(self, db_path):
-        # p = Path(Path.cwd(), "data")
-        # p.mkdir(parents=True, exist_ok=True)
-        
-        # self.__db_path = p.joinpath("users.db")
-        self.__db_path = db_path
+    def __init__(self):
+        self.__db_path = ConfigurationService().get_connection_string()
 
-    def initialize_tables(self):
-        create_user_table_query = "CREATE TABLE IF NOT EXISTS user (username TEXT NOT NULL UNIQUE)"
-        create_embeddings_table_query = "CREATE TABLE IF NO EXISTS embeddings(username TEXT, value REAL)"
-
-        # self.execute(query)
-        self.execute_many([create_user_table_query, create_embeddings_table_query])
+    # def initialize_tables(self):
+    #     create_user_table_query = "CREATE TABLE IF NOT EXISTS user (username TEXT NOT NULL UNIQUE)"
+    #     create_embeddings_table_query = "CREATE TABLE IF NOT EXISTS embeddings(username TEXT, value REAL)"
+    #     insert_user_query = "INSERT INTO user(username) VALUES (?)"
+    #     # self.execute(query)
+    #     self.execute_many([create_user_table_query, create_embeddings_table_query])
+    #     self.execute(insert_user_query, params=("Me",))
 
     def execute(self, query, params=None):
         
